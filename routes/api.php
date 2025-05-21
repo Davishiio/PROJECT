@@ -9,14 +9,12 @@ $resource = $segments[0] ?? null;
 $id = $segments[1] ?? null;
 $extra = $segments[2] ?? null;
 
-// 📦 Mapa de recursos a controladores
 $routes = [
     'users' => 'UserController',
     'libros' => 'LibroController',
     'empresas' => 'EmpresaController'
 ];
 
-// Verificamos si el recurso existe en el mapa
 if (!isset($routes[$resource]) || $extra !== null) {
     http_response_code(404);
     echo json_encode(['error' => 'Ruta no válida']);

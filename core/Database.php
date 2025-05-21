@@ -1,4 +1,5 @@
 <?php
+
 class Database {
     private static $instance = null;
 
@@ -9,5 +10,5 @@ class Database {
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$instance;
-    }
+    }   
 }
