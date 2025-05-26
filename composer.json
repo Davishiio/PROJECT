@@ -1,0 +1,17 @@
+{
+    "name": "david/project",
+    "autoload": {
+        "psr-4": {
+            "David\\Project\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David J.",
+            "email": "L21390330@CHETUMAL.TECNM.MX"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    }
+}

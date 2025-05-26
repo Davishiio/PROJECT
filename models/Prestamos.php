@@ -58,4 +58,10 @@ class Prestamos {
         $stmt = $this->db->prepare("DELETE FROM prestamos WHERE id_prestamo = ?");
         return $stmt->execute([$id]);
     }
+    public function findByUser($id_usuario) {
+    $stmt = $this->db->prepare("SELECT * FROM prestamos WHERE id_usuario = ?");
+    $stmt->execute([$id_usuario]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }

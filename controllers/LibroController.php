@@ -1,13 +1,35 @@
 <?php
-class LibroController {
-    public function index() {
+require_once 'core/Controller.php'; 
+
+class LibroController extends Controller
+{
+    
+    public function __construct()
+    {
+        parent::__construct(); 
+    }
+    public function index()
+    {
+        $id_usuario = $this->user['id'];
+        $rol = $this->user['role'];
+        $this->authorize([1, 2], $id_usuario); 
+
         $libro = new Libros();
-        $data = $libro->all();
+
+        if ($rol == 2) {
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'No tienes permisos']);
+            return;
+        } else {
+            $data = $libro->all();
+        }
+
         header('Content-Type: application/json');
         echo json_encode($data);
     }
 
-    public function store() {
+    public function store()
+    {
         $data = json_decode(file_get_contents("php://input"), true);
         $libro = new Libros();
         $success = $libro->create($data);
@@ -15,7 +37,8 @@ class LibroController {
         echo json_encode(['success' => $success]);
     }
 
-    public function update($id) {
+    public function update($id)
+    {
         $data = json_decode(file_get_contents("php://input"), true);
         $libro = new Libros();
         $success = $libro->update($id, $data);
@@ -23,7 +46,8 @@ class LibroController {
         echo json_encode(['success' => $success]);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $libro = new Libros();
         $data = $libro->find($id);
 
@@ -35,7 +59,8 @@ class LibroController {
         }
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $libro = new Libros();
         $success = $libro->delete($id);
         header('Content-Type: application/json');

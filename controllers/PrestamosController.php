@@ -1,13 +1,36 @@
 <?php
-class PrestamosController {
-    public function index() {
+require_once 'core/Controller.php'; // Asegúrate de ajustar el path según tu estructura
+
+class PrestamosController extends Controller
+{
+    public function __construct()
+    {
+        parent::__construct(); // Muy importante para cargar $this->user
+    }
+    public function index()
+    {
+        $id_usuario = $this->user['id'];
+        $rol = $this->user['role'];
+        $this->authorize([1, 2], $id_usuario); // Validamos acceso
+
         $prestamos = new Prestamos();
-        $data = $prestamos->all();
+
+        if ($rol == 2) {
+            // Si es cliente, sólo muestra sus préstamos
+            $data = $prestamos->findByUser($id_usuario);
+        } else {
+            // Si es admin, muestra todos
+            $data = $prestamos->all();
+        }
+
         header('Content-Type: application/json');
         echo json_encode($data);
     }
 
-    public function show($id) {
+
+    public function show($id)
+    {
+        $this->authorize([1, 2], $this->user['id_usuario']); // ← autorización basada en el usuario autenticado
         $prestamos = new Prestamos();
         $data = $prestamos->find($id);
         header('Content-Type: application/json');
@@ -19,7 +42,9 @@ class PrestamosController {
         }
     }
 
-    public function devuelto($valor) {
+
+    public function devuelto($valor)
+    {
         // valor debe ser '0' o '1'
         if ($valor !== '0' && $valor !== '1') {
             http_response_code(400);
@@ -32,7 +57,8 @@ class PrestamosController {
         echo json_encode($data);
     }
 
-    public function devolucion($id_usuario) {
+    public function devolucion($id_usuario)
+    {
         if (!is_numeric($id_usuario)) {
             http_response_code(400);
             echo json_encode(['error' => 'ID usuario inválido']);
@@ -44,7 +70,8 @@ class PrestamosController {
         echo json_encode($data);
     }
 
-    public function store() {
+    public function store()
+    {
         $data = json_decode(file_get_contents("php://input"), true);
         $prestamos = new Prestamos();
         $success = $prestamos->create($data);
@@ -52,7 +79,8 @@ class PrestamosController {
         echo json_encode(['success' => $success]);
     }
 
-    public function update($id) {
+    public function update($id)
+    {
         $data = json_decode(file_get_contents("php://input"), true);
         $prestamos = new Prestamos();
         $success = $prestamos->update($id, $data);
@@ -60,7 +88,8 @@ class PrestamosController {
         echo json_encode(['success' => $success]);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $prestamos = new Prestamos();
         $success = $prestamos->delete($id);
         header('Content-Type: application/json');
