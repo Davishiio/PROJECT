@@ -1,5 +1,5 @@
 <?php
-$basePath = '/PROJECT_MVC';
+$basePath = '/PROJECT';
 $uri = str_replace($basePath, '', $_SERVER['REQUEST_URI']);
 $uri = parse_url($uri, PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];
@@ -10,9 +10,11 @@ $id = $segments[1] ?? null;
 $extra = $segments[2] ?? null;
 
 $routes = [
-    'users' => 'UserController',
+    'usuarios' => 'UsuariosController',
     'libros' => 'LibroController',
-    'empresas' => 'EmpresaController'
+    'empresas' => 'EmpresaController',
+    'autores' => 'AutoresController',
+    'editoriales' => 'EditorialesController'
 ];
 
 if (!isset($routes[$resource]) || $extra !== null) {
