@@ -1,8 +1,17 @@
 <?php
 require_once 'core/Controller.php'; 
-
+require_once 'models/Prestamos.php';
+require_once 'vendor/autoload.php';
+require_once 'core/PDFGeneratorTrait.php';
+use Core\PDFGeneratorTrait;
 class LibroController extends Controller
 {
+    use PDFGeneratorTrait;
+
+    public function generarPDF()
+    {
+        $this->generarPDFBase('Libros', 'Reporte de Libros');
+    }
     
     public function __construct()
     {

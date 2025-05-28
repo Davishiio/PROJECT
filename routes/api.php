@@ -9,7 +9,6 @@ $segments = explode('/', trim($uri, '/'));
 $resource = $segments[0] ?? null;
 $controllerMethod = $segments[1] ?? null;
 $params = array_slice($segments, 2);
-
 $routes = [
     'usuarios' => 'UsuariosController',
     'libros' => 'LibroController',
@@ -20,6 +19,8 @@ $routes = [
     'ejemplares' => 'EjemplarController',
     'prestamos' => 'PrestamosController',
 ];
+
+
 
 // Verificar recurso
 if (!isset($routes[$resource])) {
@@ -60,7 +61,6 @@ if (
 
     $token = $matches[1];
 
-    // Carga la clase Auth (ajusta la ruta según donde tengas la clase)
     require_once __DIR__ . '/../core/Auth.php';
 
     $userData = Auth::validateToken($token);
@@ -71,17 +71,14 @@ if (
         exit;
     }
 
-    // ← AQUI AGREGA ESTO:
     $_REQUEST['user'] = (array) $userData;
 
-    // Opcional: puedes guardar los datos del usuario para usarlos después
-    // Ejemplo: $_REQUEST['user'] = $userData;
 }
 // --- FIN VALIDACION DEL TOKEN JWT ---
 
+
 // Instanciar el controlador
 $controller = new $controllerName();
-
 // Enrutamiento por método HTTP
 switch ($method) {
     case 'GET':
