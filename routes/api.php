@@ -18,6 +18,7 @@ $routes = [
     'generos' => 'GenerosController',
     'ejemplares' => 'EjemplarController',
     'prestamos' => 'PrestamosController',
+    'pdf' => 'PDFController',
 ];
 
 
