@@ -27,8 +27,8 @@ class EmailController extends Controller
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';  
             $mail->SMTPAuth = true;
-            $mail->Username = 'dtdavidg@gmail.com';  // tu correo
-            $mail->Password = 'snco ints ifoh mkrn'; // tu password de app o real (mejor variable de entorno)
+            $mail->Username = '';  // tu correo
+            $mail->Password = ''; // tu password de app o real (mejor variable de entorno)
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
