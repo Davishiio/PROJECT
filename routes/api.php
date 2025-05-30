@@ -1,5 +1,16 @@
 <?php
+// CORS: permite que tu SPA en localhost:5173 hable con tu API
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+
+// Responder a preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 // Define la base real de tu proyecto, cambia si es necesario
+
 $basePath = '/PROJECT';
 $uri = str_replace($basePath, '', $_SERVER['REQUEST_URI']);
 $uri = parse_url($uri, PHP_URL_PATH);

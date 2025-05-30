@@ -71,7 +71,11 @@ class UsuariosController
         $token = Auth::generateToken($user['id_usuario'], $user['id_rol']);
 
 
-        echo json_encode(['token' => $token]);
+        echo json_encode(['token' => $token, 'user' => [
+            'id' => $user['id_usuario'],
+            'email' => $user['email'],
+            'role' => $user['id_rol']
+        ]]);
     }
 
 
