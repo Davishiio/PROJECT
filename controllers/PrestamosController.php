@@ -135,14 +135,16 @@ class PrestamosController extends Controller
         echo json_encode(['success' => $success]);
     }
 
-    public function update($id)
-    {
-        $data = json_decode(file_get_contents("php://input"), true);
-        $prestamos = new Prestamos();
-        $success = $prestamos->update($id, $data);
-        header('Content-Type: application/json');
-        echo json_encode(['success' => $success]);
-    }
+   public function update($id)
+{
+    $data = json_decode(file_get_contents("php://input"), true);
+    $prestamos = new Prestamos();
+    $success = $prestamos->update($id, $data);
+    header('Content-Type: application/json');
+    echo json_encode(['success' => $success]);
+}
+
+
 
     public function destroy($id)
     {

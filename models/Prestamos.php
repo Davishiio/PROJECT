@@ -13,6 +13,7 @@ class Prestamos
         $sql = "SELECT 
                     p.*, 
                     u.nombre AS usuario_nombre, 
+                    u.email AS usuario_email,
                     l.titulo AS libro_titulo
                 FROM prestamos p
                 INNER JOIN usuarios u ON p.id_usuario = u.id_usuario

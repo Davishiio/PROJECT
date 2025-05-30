@@ -11,7 +11,7 @@ class Ejemplares
     public function all()
     {
         $stmt = $this->db->query("
-            SELECT e.id_ejemplar, e.numero_serie, e.disponible, l.titulo
+            SELECT e.id_ejemplar, e.id_libro, e.numero_serie, e.disponible, l.titulo
             FROM ejemplares e
             JOIN libros l ON e.id_libro = l.id_libro
         ");

@@ -30,6 +30,7 @@ $routes = [
     'ejemplares' => 'EjemplarController',
     'prestamos' => 'PrestamosController',
     'pdf' => 'PDFController',
+    'emails' => 'EmailController',
 ];
 
 
@@ -111,13 +112,16 @@ switch ($method) {
     case 'POST':
         if ($controllerMethod === null) {
             $controller->store();
-        } elseif ($controllerMethod === 'login') {
+        } elseif ($resource === 'usuarios' && $controllerMethod === 'login') {
             $controller->login();
+        } elseif ($resource === 'emails' && $controllerMethod === 'send') {
+            $controller->send();
         } else {
             http_response_code(400);
             echo json_encode(['error' => 'POST no acepta ID ni métodos extra']);
         }
         break;
+
 
 
     case 'PUT':
